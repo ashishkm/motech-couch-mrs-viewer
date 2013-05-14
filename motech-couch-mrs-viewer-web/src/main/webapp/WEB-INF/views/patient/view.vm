@@ -1,4 +1,3 @@
-
 #macro ( printLabel $label $value $tab )
 #startNewLine($tab)<label>${label}:</label> $value#endNewLine()
 #end
@@ -130,11 +129,4 @@
 #end
 #end
 
-<html>
-<head>
-<base href="${request.getContextPath()}/"/>
-<link rel="stylesheet" type="text/css" href="styles/style.css">
-<head>
 #printPatient($patient 0)
-</body>
-</html>

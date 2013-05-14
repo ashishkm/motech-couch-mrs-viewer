@@ -1,1 +1,9 @@
+<html>
+<head>
+    <base href="${request.getContextPath()}/"/>
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+</head>
+<body>
 $screen_content
+</body>
+</html>
