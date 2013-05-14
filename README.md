@@ -5,11 +5,12 @@ Visualization for MOTECH Couch MRS
 
 This is a web application which fetched patient details from MOTECH Couch MRS and displays in HTML/JSON/XML format.
 
-Note:
-1. Modify couchdb.properties and tenant.properties as per your configuration.
+<br>Note:
+<br>1. Modify couchdb.properties and tenant.properties as per your configuration.
 
 
 URLS:
-HTML View:: <host>:<port>/<context-path>/patient/<motech-id>
-XML/JSON:: <host>:<port>/<context-path>/patient/raw/<motech-id> (Default is JSON. Need to provide Accept:application/xml header for XML data)
+<br><b>HTML View::</b> <pre>&lt;host&gt;:&lt;port&gt;/&lt;context-path&gt;/patient/&lt;motech-id&gt;</pre>
+<br><b>XML/JSON::</b> <pre>&lt;host&gt;:&lt;port&gt;/&lt;context-path&gt;/patient/raw/&lt;motech-id&gt;</pre>
+(Default is JSON. Need to provide "Accept:application/xml" header for XML data. Can also provide "Accept:application/json" for data in JSON format.)
 
