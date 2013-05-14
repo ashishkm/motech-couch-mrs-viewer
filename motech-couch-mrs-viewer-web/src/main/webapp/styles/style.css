@@ -1,0 +1,16 @@
+body {
+    margin: 0px;
+	font-size: 1.2em;
+	font-family: "trebuchet ms", helvetica, sans-serif;
+	color: #333
+}
+
+label {
+    color: blue;
+    margin-right: 10px;
+}
+
+.line {
+    display:block;
+    margin-bottom: 5px;
+}
