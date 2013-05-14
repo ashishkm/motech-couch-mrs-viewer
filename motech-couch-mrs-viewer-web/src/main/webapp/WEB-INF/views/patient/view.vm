@@ -32,7 +32,7 @@
 #printPerson($patient.person $nextTab1)
 #printLabel("Facility" "" $tab)
 #printFacility($patient.facility $nextTab1)
-#printLabel("Encounters" "" $tab)
+#printLabel("Encounters [${patient.encounters.size()}]" "" $tab)
 #printEncounters($patient.encounters $nextTab1)
 #end
 #end
@@ -79,8 +79,8 @@
 
 #macro ( printEncounters $encounters $tab )
 #foreach( $encounter in $encounters )
+    #printNewLine("--------------- ENCOUNTER $foreach.count ----------------------" $tab)
     #printEncounter($encounter $tab)
-    #printNewLine("-------------------------------------" $tab)
 #end
 #end
 
@@ -96,14 +96,14 @@
 #printFacility($encounter.facility $nextTab3)
 #printLabel("Provider" "" $tab)
 #printProvider($encounter.provider $nextTab3)
-#printLabel("Observations" "" $tab)
+#printLabel("Observations [${encounter.observations.size()}]" "" $tab)
 #printObservations($encounter.observations $nextTab3)
 #end
 
 #macro ( printObservations $observations $tab )
 #foreach( $observation in $observations )
+    #printNewLine("--------------- Observation $foreach.count ----------------------" $tab)
     #printObservation($observation $tab)
-    #printNewLine("-------------------------------------" $tab)
 #end
 #end
 
