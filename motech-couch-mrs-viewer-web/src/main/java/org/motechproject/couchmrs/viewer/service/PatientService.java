@@ -28,8 +28,10 @@ public class PatientService {
         if(motechId == null) {
             return null;
         }
+        return getSinglePatient(allCouchPatients.findByMotechId(motechId));
+    }
 
-        List<CouchPatientImpl> couchPatients = allCouchPatients.findByMotechId(motechId);
+    private Patient getSinglePatient(List<CouchPatientImpl> couchPatients) {
         if(couchPatients.size() == 0) {
             return null;
         }
@@ -37,5 +39,12 @@ public class PatientService {
         CouchPatientImpl couchPatient = couchPatients.get(0);
 
         return new Patient(couchPatient.getId(), couchPatient.getPatientId(), couchPatient.getMotechId(), personService.getFor(couchPatient.getPersonId()), facilityService.getFor(couchPatient.getFacilityId()), encounterService.getForMotechId(couchPatient.getMotechId()));
+    }
+
+    public Patient findByPatientId(String patientId) {
+        if(patientId == null) {
+            return null;
+        }
+        return getSinglePatient(allCouchPatients.findByPatientId(patientId));
     }
 }

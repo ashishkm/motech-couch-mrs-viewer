@@ -13,7 +13,6 @@ public class Observation extends CouchDocument {
     @JsonProperty
     @XmlElement
     private String observationId;
-
     @JsonProperty
     @XmlElement
     private String conceptName;

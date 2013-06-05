@@ -26,14 +26,23 @@ public class PatientController {
         this.couchBaseUrl = String.format("http://%s:%s", couchProperties.getProperty("host"), couchProperties.getProperty("port"));
     }
 
-    @RequestMapping(value="/{motechId}", method= RequestMethod.GET)
-    public ModelAndView getPatient(@PathVariable String motechId) {
-        return new ModelAndView("/patient/view").addObject("patient", patientService.findByMotechId(motechId)).addObject("couchBaseUrl", couchBaseUrl);
+    @RequestMapping(value="/{id}", method= RequestMethod.GET)
+    public ModelAndView getPatient(@PathVariable String id) {
+        Patient patient = findPatientById(id);
+        return new ModelAndView("/patient/view").addObject("patient", patient).addObject("couchBaseUrl", couchBaseUrl);
     }
 
-    @RequestMapping(value="/raw/{motechId}", method= RequestMethod.GET)
+    private Patient findPatientById(String id) {
+        Patient patient = patientService.findByMotechId(id);
+        if(patient == null) {
+            patient = patientService.findByPatientId(id);
+        }
+        return patient;
+    }
+
+    @RequestMapping(value="/raw/{id}", method= RequestMethod.GET)
     @ResponseBody
-    public Patient getRaw(@PathVariable String motechId) {
-        return patientService.findByMotechId(motechId);
+    public Patient getRaw(@PathVariable String id) {
+        return findPatientById(id);
     }
 }
