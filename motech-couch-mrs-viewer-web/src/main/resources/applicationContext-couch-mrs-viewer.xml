@@ -11,9 +11,51 @@
     <context:annotation-config/>
 
     <util:properties id="couchdbProperties" location="classpath:/couchdb.properties"/>
+    <bean id="eventRelay" class="org.motechproject.couchmrs.viewer.service.DummyEventRelay"/>
+    <bean id="couchDbManager" class="org.motechproject.commons.couchdb.service.impl.CouchDbManagerImpl"/>
 
-    <import resource="classpath*:/META-INF/motech/*.xml" />
+    <bean id="couchPersonDatabaseConnector" factory-bean="couchDbManager"
+          factory-method="getConnector">
+        <constructor-arg value="motech-person-repository" />
+    </bean>
 
-    <context:component-scan base-package="org.motechproject.couchmrs"/>
+    <bean id="couchConceptDatabaseConnector" factory-bean="couchDbManager"
+          factory-method="getConnector">
+        <constructor-arg value="motech-concept-repository" />
+    </bean>
+
+    <bean id="couchProviderDatabaseConnector" factory-bean="couchDbManager"
+          factory-method="getConnector">
+        <constructor-arg value="motech-provider-repository" />
+    </bean>
+
+    <bean id="couchPatientDatabaseConnector" factory-bean="couchDbManager"
+          factory-method="getConnector">
+        <constructor-arg value="motech-patient-repository" />
+    </bean>
+
+    <bean id="couchFacilityDatabaseConnector" factory-bean="couchDbManager"
+          factory-method="getConnector">
+        <constructor-arg value="motech-facility-repository" />
+    </bean>
+
+    <bean id="couchObservationDatabaseConnector" factory-bean="couchDbManager"
+          factory-method="getConnector">
+        <constructor-arg value="motech-observation-repository" />
+    </bean>
+
+    <bean id="couchEncounterDatabaseConnector" factory-bean="couchDbManager"
+          factory-method="getConnector">
+        <constructor-arg value="motech-encounter-repository" />
+    </bean>
+
+    <context:annotation-config />
+    <context:component-scan base-package="org.motechproject.couchmrs.viewer" />
+    <context:component-scan base-package="org.motechproject.couch.mrs.repository.impl" />
+
+
+    <!-- <import resource="classpath*:/META-INF/motech/*.xml" />
+
+    <context:component-scan base-package="org.motechproject.couchmrs"/> -->
  
 </beans>
