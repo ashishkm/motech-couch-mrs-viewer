@@ -14,3 +14,4 @@ URLS:
 <br><b>XML/JSON::</b> <pre>&lt;host&gt;:&lt;port&gt;/&lt;context-path&gt;/patient/raw/&lt;motech-id&gt;</pre>
 (Default is JSON. Need to provide "Accept:application/xml" header for XML data. Can also provide "Accept:application/json" for data in JSON format.)
 
+
