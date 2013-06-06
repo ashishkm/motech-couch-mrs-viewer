@@ -26,6 +26,16 @@
             <groupId>org.motechproject</groupId>
             <artifactId>motech-mrs-couchdb</artifactId>
             <version>0.20-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>org.springframework.web.servlet</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>com.springsource.javax.servlet</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.motechproject.contrib-ananya-kilkari</groupId>
