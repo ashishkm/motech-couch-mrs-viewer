@@ -122,6 +122,7 @@
 #if(!$provider)
 #printNewLine("<font style='color:red'>Provider not found</font>" $tab)
 #else
+#printCouchId($provider $tab)
 #printLabel("Provider Id" ${provider.providerId} $tab)
 #printLabel("Person" "" $tab)
 #set( $nextTab4 = $tab + 1 )
