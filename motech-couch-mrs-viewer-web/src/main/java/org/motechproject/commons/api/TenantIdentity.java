@@ -8,29 +8,51 @@ import org.springframework.core.io.support.PropertiesLoaderUtils;
 import java.io.IOException;
 import java.util.Properties;
 
-final public class TenantIdentity {
-    private static String tenantId = System.getProperty("user.name");
+public class TenantIdentity {
+    private IdentityProvider identityProvider;
 
-    static {
+    public TenantIdentity() {
+        this(new SystemIdentityProvider());
+    }
+
+    public TenantIdentity(IdentityProvider identityProvider) {
+        setIdentityProvider(identityProvider);
+    }
+
+    private void setIdentityProvider(IdentityProvider identityProvider) {
+        this.identityProvider = new PropertyIdentityProvider(identityProvider);
+    }
+
+    public String getId() {
+        String identity = identityProvider.getIdentity();
+        if (StringUtils.isNotBlank(identity)) {
+            return identity.toLowerCase();
+        }
+        return identity;
+    }
+}
+
+
+
+class PropertyIdentityProvider implements IdentityProvider {
+    private IdentityProvider originalIdentityProvider;
+
+    private String tenantIdFromProperty;
+
+    public PropertyIdentityProvider(IdentityProvider originalIdentityProvider) {
+        this.originalIdentityProvider = originalIdentityProvider;
         Resource resource = new ClassPathResource("/tenant.properties");
-        Properties props = null;
+        Properties props;
         try {
             props = PropertiesLoaderUtils.loadProperties(resource);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        String value = props.getProperty("tenant.id");
-
-        if(!StringUtils.isBlank(value)) {
-            tenantId = value;
-        }
+        tenantIdFromProperty = props.getProperty("tenant.id");
     }
 
-    private TenantIdentity() throws IOException {
-
-    }
-
-    public static String getTenantId() {
-         return tenantId;
+    @Override
+    public String getIdentity() {
+        return StringUtils.isBlank(tenantIdFromProperty) ? originalIdentityProvider.getIdentity() : tenantIdFromProperty;
     }
 }
