@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @XmlRootElement
-public class Observation extends CouchDocument {
+public class Observation {
 
     @JsonProperty
     @XmlElement
@@ -38,11 +38,10 @@ public class Observation extends CouchDocument {
 
     }
 
-    public Observation(String couchId, String observationId, String conceptName, String value, String patientId, List<Observation> dependentObservations, DateTime date) {
-        super(couchId, "motech-observation-repository");
+    public Observation( String observationId, String conceptName, String value, String patientId, List<Observation> dependentObservations, DateTime date) {
         this.observationId = observationId;
         this.conceptName = conceptName;
-        this.value = value.toString();
+        this.value = value;
         this.patientId = patientId;
         this.dependentObservations = dependentObservations;
         this.date = date;
