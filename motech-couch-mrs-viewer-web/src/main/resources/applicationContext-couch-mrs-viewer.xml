@@ -49,6 +49,11 @@
         <constructor-arg value="motech-encounter-repository" />
     </bean>
 
+    <bean id="motechIdReservationDatabaseConnector" factory-bean="couchDbManager"
+          factory-method="getConnector">
+        <constructor-arg value="motech-motech-id-reservation-repository" />
+    </bean>
+
     <context:annotation-config />
     <context:component-scan base-package="org.motechproject.couchmrs.viewer" />
     <context:component-scan base-package="org.motechproject.couch.mrs.repository.impl" />
