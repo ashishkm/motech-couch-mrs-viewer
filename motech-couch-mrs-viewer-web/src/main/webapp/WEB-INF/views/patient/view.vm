@@ -1,133 +1,136 @@
 #macro ( printLabel $label $value $tab )
-#startNewLine($tab)<label>${label}:</label> $value#endNewLine()
+    #startNewLine($tab)<label>${label}:</label> $value#endNewLine()
 #end
 
 #macro ( printNewLine $value $tab )
-#startNewLine($tab)${value}#endNewLine()
+    #startNewLine($tab)${value}#endNewLine()
 #end
 
 #macro ( startNewLine $tab )
-#set( $width = $tab*100 )
+    #set( $width = $tab*100 )
 <div class="line" style="margin-left:${width}px;">
 #end
 
 #macro ( endNewLine )
-    </div>
+</div>
 #end
 
 #macro ( printCouchId $couchDocument $tab )
-#printLabel("Couch Id" "<a href='${couchDocument.getCouchDocumentUrl($couchBaseUrl)}'>${couchDocument.couchId}</a>" $tab)
+    #printLabel("Couch Id" "<a
+            href='${couchDocument.getCouchDocumentUrl($couchBaseUrl)}'>${couchDocument.couchId}</a>" $tab)
 #end
 
 #macro ( printPatient $patient $tab)
-#if(!$patient)
-#printNewLine("<font style='color:red'>Patient not found</font>" $tab)
-#else
-#printCouchId($patient $tab)
-#printLabel("MOTECH Id" ${patient.motechId} $tab)
-#printLabel("Patient Id" ${patient.patientId} $tab)
-#printLabel("Person" "" $tab)
-#set( $nextTab1 = $tab + 1 )
-#printPerson($patient.person $nextTab1)
-#printLabel("Facility" "" $tab)
-#printFacility($patient.facility $nextTab1)
-#printLabel("Encounters [${patient.encounters.size()}]" "" $tab)
-#printEncounters($patient.encounters $nextTab1)
-#end
+    #if(!$patient)
+        #printNewLine("<font style='color:red'>Patient not found</font>" $tab)
+    #else
+        #printCouchId($patient $tab)
+        #printLabel("MOTECH Id" ${patient.motechId} $tab)
+        #printLabel("Patient Id" ${patient.patientId} $tab)
+        #printLabel("Person" "" $tab)
+        #set( $nextTab1 = $tab + 1 )
+        #printPerson($patient.person $nextTab1)
+        #printLabel("Facility" "" $tab)
+        #printFacility($patient.facility $nextTab1)
+        #printLabel("Encounters [${patient.encounters.size()}]" "" $tab)
+        #printEncounters($patient.encounters $nextTab1)
+    #end
 #end
 
 
 
 #macro ( printPerson $person $tab)
-#if(!$person)
-#printNewLine("<font style='color:red'>Person not found</font>" $tab)
-#else
-#printCouchId($person $tab)
-#printLabel("Person Id" ${person.personId} $tab)
-#printLabel("First Name" ${person.firstName} $tab)
-#printLabel("Middle Name" ${person.middleName} $tab)
-#printLabel("Last Name" ${person.lastName} $tab)
-#printLabel("Preferred Name" ${person.preferredName} $tab)
-#printLabel("Address" ${person.address} $tab)
-#printLabel("DOB" ${person.dateOfBirth} $tab)
-#printLabel("DOB Estimated?" ${person.birthDateEstimated} $tab)
-#printLabel("Age" ${person.age} $tab)
-#printLabel("Gender" ${person.gender} $tab)
-#printLabel("Is Dead?" ${person.dead} $tab)
-#printLabel("Attributes" "" $tab)
-#foreach( $attribute in ${person.attributes} )
-    #set ($nextTab2 = $tab + 1)
-    #printLabel(${attribute.name} ${attribute.value} $nextTab2)
-#end
-#end
+    #if(!$person)
+        #printNewLine("<font style='color:red'>Person not found</font>" $tab)
+    #else
+        #printCouchId($person $tab)
+        #printLabel("Person Id" ${person.personId} $tab)
+        #printLabel("First Name" ${person.firstName} $tab)
+        #printLabel("Middle Name" ${person.middleName} $tab)
+        #printLabel("Last Name" ${person.lastName} $tab)
+        #printLabel("Preferred Name" ${person.preferredName} $tab)
+        #printLabel("Address" ${person.address} $tab)
+        #printLabel("DOB" ${person.dateOfBirth} $tab)
+        #printLabel("DOB Estimated?" ${person.birthDateEstimated} $tab)
+        #printLabel("Age" ${person.age} $tab)
+        #printLabel("Gender" ${person.gender} $tab)
+        #printLabel("Is Dead?" ${person.dead} $tab)
+        #printLabel("Attributes" "" $tab)
+        #foreach( $attribute in ${person.attributes} )
+            #set ($nextTab2 = $tab + 1)
+            #printLabel(${attribute.name} ${attribute.value} $nextTab2)
+        #end
+    #end
 #end
 
 #macro ( printFacility $facility $tab )
-#if(!$facility)
-#printNewLine("<font style='color:red'>Facility not found</font>" $tab)
-#else
-#printCouchId($facility $tab)
-#printLabel("Facility Id" ${facility.facilityId} $tab)
-#printLabel("Name" ${facility.firstName} $tab)
-#printLabel("Region" ${facility.middleName} $tab)
-#printLabel("County/District" ${facility.countyDistrict} $tab)
-#printLabel("State/Province" ${facility.stateProvince} $tab)
-#printLabel("Country" ${facility.country} $tab)
-#end
+    #if(!$facility)
+        #printNewLine("<font style='color:red'>Facility not found</font>" $tab)
+    #else
+        #printCouchId($facility $tab)
+        #printLabel("Facility Id" ${facility.facilityId} $tab)
+        #printLabel("Name" ${facility.firstName} $tab)
+        #printLabel("Region" ${facility.middleName} $tab)
+        #printLabel("County/District" ${facility.countyDistrict} $tab)
+        #printLabel("State/Province" ${facility.stateProvince} $tab)
+        #printLabel("Country" ${facility.country} $tab)
+    #end
 #end
 
 #macro ( printEncounters $encounters $tab )
-#foreach( $encounter in $encounters )
-    #printNewLine("--------------- ENCOUNTER $foreach.count ----------------------" $tab)
-    #printEncounter($encounter $tab)
-#end
+    #foreach( $encounter in $encounters )
+        #printNewLine("--------------- ENCOUNTER $foreach.count ----------------------" $tab)
+        #printEncounter($encounter $tab)
+    #end
 #end
 
 #macro ( printEncounter $encounter $tab )
-#printCouchId($encounter $tab)
-#printLabel("Encounter Id" ${encounter.encounterId} $tab)
-#printLabel("Type" ${encounter.type} $tab)
-#printLabel("Patient MOTECH Id" ${encounter.patientId} $tab)
-#printLabel("Creator Id" ${encounter.creatorId} $tab)
-#printLabel("Date" ${encounter.date} $tab)
-#printLabel("Facility" "" $tab)
-#set( $nextTab3 = $tab + 1 )
-#printFacility($encounter.facility $nextTab3)
-#printLabel("Provider" "" $tab)
-#printProvider($encounter.provider $nextTab3)
-#printLabel("Observations [${encounter.observations.size()}]" "" $tab)
-#printObservations($encounter.observations $nextTab3)
+    #printCouchId($encounter $tab)
+    #printLabel("Encounter Id" ${encounter.encounterId} $tab)
+    #printLabel("Type" ${encounter.type} $tab)
+    #printLabel("Patient MOTECH Id" ${encounter.patientId} $tab)
+    #printLabel("Creator Id" ${encounter.creatorId} $tab)
+    #printLabel("Date" ${encounter.date} $tab)
+    #printLabel("Facility" "" $tab)
+    #set( $nextTab3 = $tab + 1 )
+    #printFacility($encounter.facility $nextTab3)
+    #printLabel("Provider" "" $tab)
+    #printProvider($encounter.provider $nextTab3)
+    #printLabel("Observations [${encounter.observations.size()}]" "" $tab)
+    #printObservations($encounter.observations $nextTab3)
 #end
 
 #macro ( printObservations $observations $tab )
-#foreach( $observation in $observations )
-    #printNewLine("--------------- Observation $foreach.count ----------------------" $tab)
-    #printObservation($observation $tab)
-#end
+    #foreach( $observation in $observations )
+        #printNewLine("--------------- Observation $foreach.count ----------------------" $tab)
+        #printObservation($observation $tab)
+    #end
 #end
 
 #macro ( printObservation $observation $tab )
-#printCouchId($observation $tab)
-#printLabel("Observation Id" ${observation.observationId} $tab)
-#printLabel("Concept Name" ${observation.conceptName} $tab)
-#printLabel("Value" ${observation.value} $tab)
-#printLabel("patient Id" ${observation.patientId} $tab)
-#printLabel("Date" ${observation.date} $tab)
-#printLabel("Dependent Observations" "" $tab)
-#set( $nextTab4 = $tab + 1 )
-#printObservations($encounter.dependentObservations $nextTab4)
+    #printLabel("Observation Id" ${observation.observationId} $tab)
+    #printLabel("Concept Name" ${observation.conceptName} $tab)
+    #printLabel("Value" ${observation.value} $tab)
+    #printLabel("patient Id" ${observation.patientId} $tab)
+    #printLabel("Date" ${observation.date} $tab)
+    #printLabel("Dependent Observations" "" $tab)
+    #foreach( $dependentObservation in $observation.dependentObservations )
+        #set( $nextTab4 = $tab + 1 )
+        #printNewLine("--------------- Dependent Observations $foreach.count ----------------------" $nextTab4)
+        #printObservation($dependentObservation $nextTab4)
+    #end
 #end
 
 #macro ( printProvider $provider $tab )
-#if(!$provider)
-#printNewLine("<font style='color:red'>Provider not found</font>" $tab)
-#else
-#printCouchId($provider $tab)
-#printLabel("Provider Id" ${provider.providerId} $tab)
-#printLabel("Person" "" $tab)
-#set( $nextTab4 = $tab + 1 )
-#printPerson($provider.person $nextTab4)
-#end
+    #if(!$provider)
+        #printNewLine("<font style='color:red'>Provider not found</font>" $tab)
+    #else
+        #printCouchId($provider $tab)
+        #printLabel("Provider Id" ${provider.providerId} $tab)
+        #printLabel("Person" "" $tab)
+        #set( $nextTab4 = $tab + 1 )
+        #printPerson($provider.person $nextTab4)
+    #end
 #end
 
 #printPatient($patient 0)
